@@ -1,5 +1,6 @@
 import { Crosshair, FilePlus2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { InfoDialog } from "@/components/InfoDialog";
 import { KeyboardLegend } from "@/components/KeyboardLegend";
 import { MarkerControls } from "@/components/MarkerControls";
 import { PlaybackControls } from "@/components/PlaybackControls";
@@ -153,6 +154,9 @@ function App() {
             onChange={handleFileSelect}
           />
         </label>
+        <p className="max-w-xs text-center text-sm text-muted-foreground">
+          Measure the Time of Flight of game pieces from your shooter.
+        </p>
       </div>
     );
   }
@@ -167,6 +171,7 @@ function App() {
           ShotTimer
         </div>
         <div className="flex-1" />
+        <InfoDialog />
         <SettingsDialog settings={settings} onSave={handleSaveSettings} />
         <ModeToggle />
         <Button variant="outline" size="sm" onClick={handleNewClip}>
