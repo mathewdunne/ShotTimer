@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# ShotTimer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based video analysis tool for measuring **Time of Flight (ToF)** of game pieces launched by FRC robot shooters. Built for tuning shooters during the 2026 *FIRST* Robotics Competition game, **Rebuilt**.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ShotTimer lets you load a slow-motion or regular-speed video of your robot shooting, then step through it frame-by-frame to mark the exact moment a game piece leaves the shooter and the moment it lands. It calculates the Time of Flight between those two events so you can compare shooter configurations and tune launch parameters.
 
-## React Compiler
+### Workflow
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Record a video of your robot shooting (higher FPS = more precision)
+2. Drop the video file into ShotTimer
+3. Configure the video's FPS by clicking on the settings gear
+4. Scrub or step frame-by-frame to the moment the game piece leaves the shooter — press **S** or tap **Mark Shot**
+5. Step forward to the moment it lands — press **L** or tap **Mark Landing**
+6. ShotTimer records the ToF and keeps a running average across all shots
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Frame-by-frame stepping (uses `requestVideoFrameCallback` for accuracy)
+- Configurable FPS to match your camera's recording rate
+- Adjustable playback speed (0.25x - 2x)
+- Shot list with individual ToF and running average
+- Keyboard shortcuts for fast workflow
+- Works entirely in the browser — no uploads, no server, no internet required
+- Dark/light/system theme
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Keyboard Shortcuts
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Key | Action |
+|-----|--------|
+| Space | Play / Pause |
+| `,` / `.` | Step back / forward one frame |
+| Left / Right Arrow | Step back / forward one second |
+| S | Mark shot |
+| L | Mark landing |
+| X | Clear pending shot |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Development
+
+Requires [Bun](https://bun.sh).
+
+```bash
+bun install        # Install dependencies
+bun dev            # Start dev server with HMR
+bun run build      # TypeScript check + production build
+bun run format     # Format and lint with Biome
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+React 19, TypeScript, Vite 8, Tailwind CSS 4, shadcn/ui (base-ui), Biome
