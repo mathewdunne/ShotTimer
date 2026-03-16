@@ -58,8 +58,7 @@ export function InfoDialog() {
               <span className="font-medium">Landing</span>
               <span className="text-muted-foreground">
                 {" "}
-                — the ball contacting the hub rim or breaking the plane of the
-                inner hole (whichever comes first)
+                — the ball breaking the plane of the outer hub rim
               </span>
             </div>
           </div>
