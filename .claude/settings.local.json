@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bunx --bun shadcn@latest add slider select dialog input separator -y)",
+      "Bash(bunx --bun shadcn@latest add slider select dialog input separator -y -o)",
+      "Bash(bun run build)",
+      "Bash(xargs sed -i 's|@/src/|@/|g')",
+      "Bash(bun run format)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(bunx --bun @biomejs/biome check .)"
+    ]
+  }
+}
